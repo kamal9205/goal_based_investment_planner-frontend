@@ -1,16 +1,20 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-
+import { logoutUser } from "@/services/authService";
 export default function LogoutButton() {
   const router = useRouter();
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
+  const handleLogout =
+  async () => {
+    try {
+      await logoutUser();
 
-    router.push("/login");
+      router.push("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
-
   return (
     <button
       onClick={handleLogout}

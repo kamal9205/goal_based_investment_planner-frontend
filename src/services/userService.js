@@ -7,3 +7,13 @@ export const getProfile =
 
     return response.data;
   };
+
+export const getAnalysis =
+  async () => {
+    const response =
+      await API.get(
+        "/user/analysis"
+      );
+
+    return response.data;
+  };

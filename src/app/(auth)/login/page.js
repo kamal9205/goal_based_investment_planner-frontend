@@ -1,69 +1,70 @@
 "use client";
 
-import { useState } from "react";
-import { loginUser } from "@/services/authService";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useLogin } from "@/hooks/useLogin";
 
 export default function LoginPage() {
-  const router = useRouter();
-
-  const [formData, setFormData] =
-    useState({
-      email: "",
-      password: "",
-    });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await loginUser(formData);
-      console.log("Login successful:", response);
-      localStorage.setItem("token", response.data.token);
-      router.push("/dashboard");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {
+    formData,
+    loading,
+    handleChange,
+    handleSubmit,
+  } = useLogin();
 
   return (
-    <div className="min-h-screen flex justify-center items-center">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-lg p-8 rounded-lg w-full max-w-md"
-      >
-        <h1 className="text-2xl font-bold mb-6">
-          Login
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
+        <h1 className="text-3xl font-bold text-center mb-2">
+          Welcome Back
         </h1>
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="border w-full p-3 mb-4"
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              email: e.target.value,
-            })
-          }
-        />
+        <p className="text-center text-gray-500 mb-8">
+          Login to your account
+        </p>
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="border w-full p-3 mb-4"
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              password: e.target.value,
-            })
-          }
-        />
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4"
+        >
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-3"
+          />
 
-        <button className="w-full bg-black text-white p-3 rounded">
-          Login
-        </button>
-      </form>
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            className="w-full border rounded-lg p-3"
+          />
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-black text-white py-3 rounded-lg"
+          >
+            {loading
+              ? "Logging in..."
+              : "Login"}
+          </button>
+        </form>
+
+        <p className="text-center mt-6">
+          Dont have an account?{" "}
+          <Link
+            href="/register"
+            className="text-blue-600"
+          >
+            Register
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

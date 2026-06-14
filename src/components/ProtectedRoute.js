@@ -21,7 +21,7 @@ export default function ProtectedRoute({
 
           setLoading(false);
         } catch (error) {
-          router.push("/login");
+          router.replace("/login");
         }
       };
 
