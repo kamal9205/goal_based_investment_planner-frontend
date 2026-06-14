@@ -1,35 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
 
 import DashboardCard from "@/components/DashboardCard";
-
-import { getDashboard } from "@/services/dashboardService";
+import AnalysisCards from "@/components/AnalysisCard";
+import { useDashboard } from "@/hooks/useDashboard";
+import { useAnalysis } from "@/hooks/useAnalysis";
 
 export default function DashboardPage() {
-  const [dashboard, setDashboard] =
-    useState(null);
-
-  const [loading, setLoading] =
-    useState(true);
-
-  useEffect(() => {
-    const fetchDashboard =
-      async () => {
-        try {
-          const data =
-            await getDashboard();
-            console.log(data);
-          setDashboard(data);
-        } catch (error) {
-          console.log(error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-    fetchDashboard();
-  }, []);
+  
+  const {dashboard, loading} = useDashboard();
+  const { analysis, } = useAnalysis();
 
   if (loading) {
     return (
@@ -42,6 +22,13 @@ console.log("Dashboard Data");
 console.log(dashboard);
   return (
     <div className="p-8">
+      {
+        analysis && (
+          <AnalysisCards
+            analysis={analysis}
+          />
+        )
+      }
       <h1 className="text-4xl font-bold mb-8">
         Dashboard
       </h1>
@@ -109,6 +96,15 @@ console.log(dashboard);
           )}
         </div>
       </div>
+      <DashboardCard
+        title="Goals On Track"
+        value={
+          dashboard.goals.filter(
+            (goal) =>
+              goal.forecast?.onTrack
+          ).length
+        }
+      />
     </div>
   );
 }

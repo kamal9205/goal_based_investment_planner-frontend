@@ -25,3 +25,13 @@ export const getProfile = async () => {
 
   return response.data;
 };
+
+export const logoutUser =
+  async () => {
+    const response =
+      await API.post(
+        "/auth/logout"
+      );
+
+    return response.data;
+  };

@@ -1,24 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getGoals } from "@/services/goalService";
-
+import { useGoals } from "@/hooks/useGoals";
 
 export default function GoalsPage() {
-  const [goals, setGoals] = useState([]);
+  const { goals, loading } =
+    useGoals();
 
-  useEffect(() => {
-    const fetchGoals = async () => {
-      const data = await getGoals();
-      setGoals(data);
-    };
+  if (loading) {
+    return (
+      <div className="p-8">
+        Loading...
+      </div>
+    );
+  }
 
-    fetchGoals();
-  }, []);
-
-  // console.log("Goals Data");
-  // console.log(goals);
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-8">
@@ -34,22 +30,56 @@ export default function GoalsPage() {
         </Link>
       </div>
 
-      <div className="grid gap-4">
-        {goals.map((goal) => (
-          <Link
-            href={`/goals/${goal._id}`}
-            key={goal._id}
-            className="border p-4 rounded-lg"
-          >
-            <h2 className="font-bold">
-              {goal.goalName}
-            </h2>
+      <div className="space-y-4">
+        {goals.length === 0 ? (
+          <p>No goals found.</p>
+        ) : (
+          goals.map((goal) => {
+            const progress = (
+              (goal.currentAmount /
+                goal.goalAmount) *
+              100
+            ).toFixed(1);
 
-            <p>
-              ₹{goal.goalAmount.toLocaleString()}
-            </p>
-          </Link>
-        ))}
+            return (
+              <Link
+                key={goal._id}
+                href={`/goals/${goal._id}`}
+              >
+                <div className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
+                  <h2 className="font-semibold text-lg">
+                    {goal.goalName}
+                  </h2>
+
+                  <p>
+                    Goal Amount: ₹
+                    {goal.goalAmount.toLocaleString()}
+                  </p>
+
+                  <p>
+                    Current Amount: ₹
+                    {goal.currentAmount.toLocaleString()}
+                  </p>
+
+                  <p>
+                    Progress: {progress}%
+                  </p>
+                </div>
+              </Link>
+            );
+          })
+        )}
+      </div>
+      <div className="mt-3">
+        {goals.forecast?.onTrack ? (
+          <span className="bg-green-100 text-green-700 px-3 py-1 rounded">
+            On Track
+          </span>
+        ) : (
+          <span className="bg-red-100 text-red-700 px-3 py-1 rounded">
+            Off Track
+          </span>
+        )}
       </div>
     </div>
   );
