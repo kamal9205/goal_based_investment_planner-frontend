@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useGoals } from "@/hooks/useGoals";
+import GoalForecastCard from "@/components/GoalForeCastCard";
 
 export default function GoalsPage() {
   const { goals, loading } =
@@ -71,15 +72,9 @@ export default function GoalsPage() {
         )}
       </div>
       <div className="mt-3">
-        {goals.forecast?.onTrack ? (
-          <span className="bg-green-100 text-green-700 px-3 py-1 rounded">
-            On Track
-          </span>
-        ) : (
-          <span className="bg-red-100 text-red-700 px-3 py-1 rounded">
-            Off Track
-          </span>
-        )}
+        <GoalForecastCard
+          forecast={goals.forecast}
+        />
       </div>
     </div>
   );
