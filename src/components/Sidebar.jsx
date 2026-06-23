@@ -24,6 +24,18 @@ export default function Sidebar() {
       name: "Profile",
       href: "/profile",
     },
+    {
+      name: "Recommendations",
+      href: "/recommendations",
+    },
+    {
+      name: "Investment Plan",
+      href: "/investment-plan",
+    },
+    {
+      name: "AI Advisor",
+      href: "/ai-advisor",
+    },
   ];
 
   return (

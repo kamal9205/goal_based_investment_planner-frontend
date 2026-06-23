@@ -1,32 +1,41 @@
 export default function GoalForecastCard({
   forecast,
 }) {
-  return (
-    <div className="bg-white shadow rounded p-4">
-      <h3 className="font-semibold mb-4">
-        Forecast
-      </h3>
+  if (!forecast) return null;
 
-      <div className="space-y-2">
-        <p>
-          Remaining:
+  return (
+    <div className="mt-4 bg-slate-50 p-4 rounded-lg">
+      <div className="flex justify-between">
+        <span>Estimated Years</span>
+
+        <span className="font-semibold">
+          {forecast.estimatedYears}
+        </span>
+      </div>
+
+      <div className="flex justify-between mt-2">
+        <span>Status</span>
+
+        <span
+          className={
+            forecast.isAchievable
+              ? "text-green-600"
+              : "text-red-600"
+          }
+        >
+          {forecast.isAchievable
+            ? "On Track"
+            : "At Risk"}
+        </span>
+      </div>
+
+      <div className="flex justify-between mt-2">
+        <span>Remaining Amount</span>
+
+        <span>
           ₹
           {forecast.remainingAmount.toLocaleString()}
-        </p>
-
-        <p>
-          Estimated Years:
-          {
-            forecast.estimatedYears
-          }
-        </p>
-
-        <p>
-          Status:
-          {forecast.onTrack
-            ? " ✅ On Track"
-            : " ❌ Off Track"}
-        </p>
+        </span>
       </div>
     </div>
   );

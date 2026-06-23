@@ -5,6 +5,7 @@ import DashboardCard from "@/components/DashboardCard";
 import AnalysisCards from "@/components/AnalysisCard";
 import { useDashboard } from "@/hooks/useDashboard";
 import { useAnalysis } from "@/hooks/useAnalysis";
+import GoalProgressChart from "@/components/GoalProgressChart";
 
 export default function DashboardPage() {
   
@@ -18,20 +19,20 @@ export default function DashboardPage() {
       </div>
     );
   }
-console.log("Dashboard Data");
-console.log(dashboard);
+// console.log("Dashboard Data");
+// console.log(dashboard);
   return (
     <div className="p-8">
-      {
-        analysis && (
-          <AnalysisCards
-            analysis={analysis}
-          />
-        )
-      }
       <h1 className="text-4xl font-bold mb-8">
         Dashboard
       </h1>
+        {
+          analysis && (
+            <AnalysisCards
+              analysis={analysis}
+            />
+          )
+        }
 
       <div className="grid md:grid-cols-3 gap-6 mb-10">
         <DashboardCard
@@ -50,6 +51,7 @@ console.log(dashboard);
           title="Monthly Investment"
           value={`₹${(dashboard?.monthlyInvestment ?? 0).toLocaleString()}`}
         />
+        
       </div>
 
       <div>
@@ -104,6 +106,9 @@ console.log(dashboard);
               goal.forecast?.onTrack
           ).length
         }
+      />
+      <GoalProgressChart
+        goals={dashboard.goals}
       />
     </div>
   );

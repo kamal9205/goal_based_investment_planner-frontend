@@ -22,16 +22,26 @@ export default function ProfilePage() {
 
   return (
     <div className="max-w-2xl mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8">
-        Financial Profile
-      </h1>
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold">
+          Financial Profile
+        </h1>
 
-      <ProfileForm
-        formData={formData}
-        handleChange={handleChange}
-        handleSubmit={saveProfile}
-        saving={saving}
-      />
+        <p className="text-gray-600 mt-2">
+          This information is used to generate
+          investment plans, risk analysis and
+          personalized recommendations.
+        </p>
+      </div>
+
+      <div className="bg-white shadow-lg rounded-xl p-8">
+        <ProfileForm
+          formData={formData}
+          handleChange={handleChange}
+          handleSubmit={saveProfile}
+          saving={saving}
+        />
+      </div>
     </div>
   );
 }
