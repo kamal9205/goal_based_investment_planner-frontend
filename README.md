@@ -344,21 +344,21 @@ Never commit secrets or `.env` files to GitHub.
 ### 1. Clone the repositories
 
 ```bash
-git clone <frontend-repository-url>
-git clone <backend-repository-url>
+git clone https://github.com/kamal9205/goal_based_investment_planner-frontend.git
+git clone https://github.com/kamal9205/goal_based_investment_planner-backend.git
 ```
 
 ### 2. Install frontend dependencies
 
 ```bash
-cd frontend
+cd investment_planner
 npm install
 ```
 
 ### 3. Install backend dependencies
 
 ```bash
-cd backend
+cd investment_planner-backend
 npm install
 ```
 
@@ -481,9 +481,9 @@ Financial calculations are performed by the application, while Gemini is used to
 
 ## 📌 Project Links
 
-- **Live Application:** [Add deployed frontend URL]
-- **Frontend Repository:** [Add GitHub URL]
-- **Backend Repository:** [Add GitHub URL]
+- **Live Application:** https://goal-based-investment-planner-front.vercel.app/login
+- **Frontend Repository:** https://github.com/kamal9205/goal_based_investment_planner-frontend.git
+- **Backend Repository:** https://github.com/kamal9205/goal_based_investment_planner-backend.git
 
 ---
 
